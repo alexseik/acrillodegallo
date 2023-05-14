@@ -55,4 +55,4 @@ npm-debug.log*
 
 # PHP
 ####################
-vendor/
+packages/wordpress/vendor/
