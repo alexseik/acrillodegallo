@@ -1,0 +1,12 @@
+{
+  "name": "garribouk/estudiofotok",
+  "authors": [
+    {
+      "name": "alexseik",
+      "email": "alex.garrido.lopez@gmail.com"
+    }
+  ],
+  "require": {
+    "vlucas/phpdotenv": "^5.1"
+  }
+}
