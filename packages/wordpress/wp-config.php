@@ -86,6 +86,7 @@ define('SECURE_AUTH_SALT', getenv_docker('WORDPRESS_SECURE_AUTH_SALT', '4292c0f2
 define('LOGGED_IN_SALT', getenv_docker('WORDPRESS_LOGGED_IN_SALT', '0c463dcad060aab96631dbb442e7352e759f49c4'));
 define('NONCE_SALT', getenv_docker('WORDPRESS_NONCE_SALT', '1315531f94865eb3ba7fe5855a170c9d9dc3c856'));
 // (See also https://wordpress.stackexchange.com/a/152905/199287)
+define('FORCE_SSL_ADMIN', true);
 
 /**#@-*/
 
