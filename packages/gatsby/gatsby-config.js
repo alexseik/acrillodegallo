@@ -7,6 +7,7 @@
  */
 
 module.exports = {
+  graphqlTypegen: true,
   /**
    * Adding plugins to this array adds them to your Gatsby site.
    *
@@ -27,6 +28,18 @@ module.exports = {
       options: {
         // the only required plugin option for WordPress is the GraphQL url.
         url: process.env.WORDPRESS_URL || "http://localhost/graphql",
+        verbose: true,
+        schema: {
+          perPage: 200,
+          timeout: 1000000,
+        },
+        debug: {
+          preview: true,
+          graphql: {
+            showQueryVarsOnError: true,
+            showQueryOnError: true,
+          },
+        },
       },
     },
 

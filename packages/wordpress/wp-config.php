@@ -86,8 +86,7 @@ define('SECURE_AUTH_SALT', '>s-0y8+|X|TZ^UBcpr$Ykcr-|IW&&Z;vTdHO*?*r }+o~/rTWtq-
 define('LOGGED_IN_SALT', '0j;P+($k- 2m-d@-JDYM;%.g-miZ[57z|-vZKg/4rdunSO},4lI||=_-i7ZHUr=0');
 define('NONCE_SALT', 'NO|J*#4G+~6)S7SSmwmm#|-FZ(R;fhR P-7uyFe?QvTRZ@_{{lz_ayGxZ(~22t]2');
 // (See also https://wordpress.stackexchange.com/a/152905/199287)
-define('FORCE_SSL_ADMIN', true);
-
+define('FORCE_SSL_ADMIN', getenv_docker('FORCE_SSL_ADMIN', true));
 /**#@-*/
 
 /**
