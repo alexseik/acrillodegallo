@@ -1,29 +1,35 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
-import { GatsbyImage } from "gatsby-plugin-image"
-import parse from "html-react-parser"
+import React from 'react';
+import { Link, graphql, PageProps } from 'gatsby';
+import { GatsbyImage } from 'gatsby-plugin-image';
+import parse from 'html-react-parser';
 
 // We're using Gutenberg so we need the block styles
 // these are copied into this project due to a conflict in the postCSS
 // version used by the Gatsby and @wordpress packages that causes build
 // failures.
 // @todo update this once @wordpress upgrades their postcss version
-import "../css/@wordpress/block-library/build-style/style.css"
-import "../css/@wordpress/block-library/build-style/theme.css"
+import '../css/@wordpress/block-library/build-style/style.css';
+import '../css/@wordpress/block-library/build-style/theme.css';
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Bio from '../components/bio';
+import Layout from '../components/Layout';
+import Seo from '../components/seo';
 
-const BlogPostTemplate = ({ data: { previous, next, post } }) => {
+const BlogPostTemplate = ({
+  data: { previous, next, post },
+}: PageProps<Queries.BlogPostByIdQuery>) => {
   const featuredImage = {
-    data: post.featuredImage?.node?.localFile?.childImageSharp?.gatsbyImageData,
-    alt: post.featuredImage?.node?.alt || ``,
-  }
+    data: post?.featuredImage?.node?.localFile?.childImageSharp
+      ?.gatsbyImageData,
+    alt: post?.featuredImage?.node?.altText || ``,
+  };
 
   return (
     <Layout>
-      <Seo title={post.title} description={post.excerpt} />
+      <Seo
+        title={post && post.title ? post.title : ''}
+        description={post && post.excerpt ? post.excerpt : ''}
+      />
 
       <article
         className="blog-post"
@@ -31,9 +37,9 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
         itemType="http://schema.org/Article"
       >
         <header>
-          <h1 itemProp="headline">{parse(post.title)}</h1>
+          <h1 itemProp="headline">{post && post.title && parse(post.title)}</h1>
 
-          <p>{post.date}</p>
+          <p>{post && post.date}</p>
 
           {/* if we have a featured image for this post let's display it */}
           {featuredImage?.data && (
@@ -45,7 +51,7 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
           )}
         </header>
 
-        {!!post.content && (
+        {post && !!post.content && (
           <section itemProp="articleBody">{parse(post.content)}</section>
         )}
 
@@ -67,27 +73,27 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
           }}
         >
           <li>
-            {previous && (
+            {previous && previous.uri && (
               <Link to={previous.uri} rel="prev">
-                ← {parse(previous.title)}
+                ← {previous.title && parse(previous.title)}
               </Link>
             )}
           </li>
 
           <li>
-            {next && (
+            {next && next.uri && (
               <Link to={next.uri} rel="next">
-                {parse(next.title)} →
+                {next.title && parse(next.title)} →
               </Link>
             )}
           </li>
         </ul>
       </nav>
     </Layout>
-  )
-}
+  );
+};
 
-export default BlogPostTemplate
+export default BlogPostTemplate;
 
 export const pageQuery = graphql`
   query BlogPostById(
@@ -125,4 +131,4 @@ export const pageQuery = graphql`
       title
     }
   }
-`
+`;

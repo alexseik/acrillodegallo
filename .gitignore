@@ -56,3 +56,4 @@ npm-debug.log*
 # PHP
 ####################
 packages/wordpress/vendor/
+packages/gatsby-starter-wordpress-homepage

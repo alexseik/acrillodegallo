@@ -1,16 +1,16 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
-import parse from "html-react-parser"
+import React from 'react';
+import { Link, graphql, PageProps } from 'gatsby';
+import parse from 'html-react-parser';
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Bio from '../components/bio';
+import Layout from '../components/Layout';
+import Seo from '../components/seo';
 
 const BlogIndex = ({
   data,
-  pageContext: { nextPagePath, previousPagePath },
-}) => {
-  const posts = data.allWpPost.nodes
+  pageContext,
+}: PageProps<Queries.WordPressPostArchiveQuery>) => {
+  const posts = data.allWpPost.nodes;
 
   if (!posts.length) {
     return (
@@ -22,7 +22,7 @@ const BlogIndex = ({
           appear here!
         </p>
       </Layout>
-    )
+    );
   }
 
   return (
@@ -32,8 +32,8 @@ const BlogIndex = ({
       <Bio />
 
       <ol style={{ listStyle: `none` }}>
-        {posts.map(post => {
-          const title = post.title
+        {posts.map((post) => {
+          const title = post.title;
 
           return (
             <li key={post.uri}>
@@ -44,31 +44,35 @@ const BlogIndex = ({
               >
                 <header>
                   <h2>
-                    <Link to={post.uri} itemProp="url">
-                      <span itemProp="headline">{parse(title)}</span>
+                    <Link to={post.uri ? post.uri : ''} itemProp="url">
+                      <span itemProp="headline">{title && parse(title)}</span>
                     </Link>
                   </h2>
                   <small>{post.date}</small>
                 </header>
-                <section itemProp="description">{parse(post.excerpt)}</section>
+                <section itemProp="description">
+                  {post.excerpt && parse(post.excerpt)}
+                </section>
               </article>
             </li>
-          )
+          );
         })}
       </ol>
 
-      {previousPagePath && (
+      {(pageContext as any).previousPagePath && (
         <>
-          <Link to={previousPagePath}>Previous page</Link>
+          <Link to={(pageContext as any).previousPagePath}>Previous page</Link>
           <br />
         </>
       )}
-      {nextPagePath && <Link to={nextPagePath}>Next page</Link>}
+      {(pageContext as any).nextPagePath && (
+        <Link to={(pageContext as any).nextPagePath}>Next page</Link>
+      )}
     </Layout>
-  )
-}
+  );
+};
 
-export default BlogIndex
+export default BlogIndex;
 
 export const pageQuery = graphql`
   query WordPressPostArchive($offset: Int!, $postsPerPage: Int!) {
@@ -82,4 +86,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
