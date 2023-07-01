@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 import Logo from './Logo';
+import MenuMobile from './MenuMobile';
 
 const Header = () => {
   const data: Queries.HeaderQueryQuery = useStaticQuery(graphql`
@@ -17,58 +18,35 @@ const Header = () => {
     }
   `);
 
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const menus = data.allWpPage.edges;
+  const menus = data.allWpPage.edges.map((edge) => edge.node);
 
   return (
     <header>
-      <div className="flex w-full items-center">
-        <Logo />
+      <div className="flex w-full items-center justify-between">
+        <div className="w-72">
+          <Logo />
+        </div>
+        <div className="px-4 md:hidden">
+          <MenuMobile links={menus} />
+        </div>
       </div>
-      <nav className="bg-white px-6 py-4">
-        <div className="flex justify-between">
-          <div className="md:hidden" onClick={toggleMenu}>
-            <button className="text-black">
-              <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
-                {isOpen ? (
-                  <path
-                    fillRule="evenodd"
-                    d="M4 4h16v2H4V4zm0 8h16v2H4v-2zm0 8h16v2H4v-2z"
-                  ></path>
-                ) : (
-                  <path
-                    fillRule="evenodd"
-                    d="M4 5h16v2H4V5zm0 8h16v2H4v-2zm0 8h16v2H4v-2z"
-                  ></path>
-                )}
-              </svg>
-            </button>
-          </div>
-          <div
-            className={`md:flex  ${
-              isOpen ? 'block' : 'hidden'
-            } w-full md:justify-center`}
-          >
-            {menus.map((menu) => (
-              <Link
-                key={menu.node.id}
-                className="mx-3 mt-2 text-sm uppercase text-orange-500 md:mt-0"
-                to={menu.node.uri ? menu.node.uri : '/'}
-              >
-                {menu.node.title}
-              </Link>
-            ))}
+      <nav className="hidden bg-white px-6 py-4 md:block">
+        <div className="flex justify-center">
+          {menus.map((menu) => (
             <Link
+              key={menu.id}
               className="mx-3 mt-2 text-sm uppercase text-orange-500 md:mt-0"
-              to="/blog"
+              to={menu.uri ? menu.uri : '/'}
             >
-              Blog
+              {menu.title}
             </Link>
-          </div>
+          ))}
+          <Link
+            className="mx-3 mt-2 text-sm uppercase text-orange-500 md:mt-0"
+            to="/blog"
+          >
+            Blog
+          </Link>
         </div>
       </nav>
     </header>
