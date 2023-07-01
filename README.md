@@ -4,6 +4,27 @@ Repositorio para la asociación de rillo de gallo
 
 ## Herramientas de mantenimiento
 
+### Desarollo en local
+
+- **Descargar el código**: El proyecto es un monorepo que contiene un wordpress (`/packages/wordpress`) y un front hecho en gatsby (`/packages/gatsby`)
+
+```bash
+git clone git@github.com:alexseik/acrillodegallo.git
+```
+
+- **Construir el proyecto gatsby**
+
+```bash
+cd acrillodegallo
+yarn
+```
+
+- **Levantar el entorno de desarrollo con docker**
+
+```bash
+docker compose up
+```
+
 ### Realizar una copia de seguridad
 
 1. Conectarse al servidor:
@@ -21,7 +42,7 @@ wp db export --path=/home/forge/acrillodegallo.es/packages/wordpress --allow-roo
 3. Desde tu máquina local ejecutar `scp`:
 
 ```bash
-scp forge@206.189.49.82:/home/forge/acrillodegallo.es/acrillodegallo-FECHA_CREADA.sql ~/acrillodegallo-FECHA_CREADA.sql
+scp forge@206.189.49.82:/home/forge/acrillodegallo-FECHA_CREADA.sql backups/acrillodegallo-FECHA_CREADA.sql
 
 ```
 
