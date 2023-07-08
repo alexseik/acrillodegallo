@@ -64,18 +64,45 @@ const createIndividualPages = async ({
 }: {
   pages: any;
   gatsbyUtilities: CreatePagesArgs;
-}) =>
-  Promise.all(
-    pages.map(({ page }: { page: any }) =>
+}) => {
+  const regularPages = pages
+    // .filter(({ page }: { page: any }) => page.uri !== '/bienvenidos/')
+    .map(({ page }: { page: any }) =>
       gatsbyUtilities.actions.createPage({
-        path: page.uri,
+        path: page.uri === '/bienvenidos/' ? '/' : page.uri,
         component: path.resolve(`./src/templates/page.tsx`),
         context: {
           id: page.id,
         },
       }),
-    ),
-  );
+    );
+
+  // const bienvenido = pages.filter(
+  //   ({ page }: { page: any }) => page.uri === '/bienvenidos/',
+  // );
+  // console.log({ bienvenido });
+  // const createBienvenidoPage = gatsbyUtilities.actions.createPage({
+  //   path: '/',
+  //   component: path.resolve('./src/template/page.tsx'),
+  //   context: {
+  //     id: bienvenido[0].id,
+  //   },
+  // });
+  // return Promise.all(
+  //   pages
+  //     .filter(({ page }: { page: any }) => page.uri !== '/bienvenidos/')
+  //     .map(({ page }: { page: any }) =>
+  //       gatsbyUtilities.actions.createPage({
+  //         path: page.uri,
+  //         component: path.resolve(`./src/templates/page.tsx`),
+  //         context: {
+  //           id: page.id,
+  //         },
+  //       }),
+  //     ),
+  // );
+  return Promise.all([...regularPages]);
+};
 
 /**
  * This function creates all the individual blog pages in this site

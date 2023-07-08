@@ -1,9 +1,9 @@
-import React, { FC, ReactNode } from "react"
-import Header from "./Header"
+import React, { FC, ReactNode } from 'react';
+import Header from './Header';
 interface LayoutProps {
-  isHomePage?: boolean
-  isDark?: boolean
-  children: ReactNode
+  isHomePage?: boolean;
+  isDark?: boolean;
+  children: ReactNode;
 }
 
 const Layout: FC<LayoutProps> = ({
@@ -22,7 +22,7 @@ const Layout: FC<LayoutProps> = ({
       </div>
       {/* <Footer /> */}
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

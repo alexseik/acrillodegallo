@@ -18,7 +18,9 @@ const Header = () => {
     }
   `);
 
-  const menus = data.allWpPage.edges.map((edge) => edge.node);
+  const menus = data.allWpPage.edges
+    .map((edge) => edge.node)
+    .filter((node) => node.uri !== '/bienvenidos/');
 
   return (
     <header>
