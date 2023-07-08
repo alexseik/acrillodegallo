@@ -36,7 +36,7 @@ yarn-error.log
 # WordPress
 ####################
 # wp-config.php
-wp-content/uploads/
+# wp-content/uploads/
 wp-content/upgrade/
 wp-content/backup-db/
 wp-content/blogs.dir/
