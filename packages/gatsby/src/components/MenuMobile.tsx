@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Menu } from '@headlessui/react';
 import { Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -6,7 +6,8 @@ import { Link } from 'gatsby';
 import { usePagesMenu } from '../hooks/menus';
 
 const MenuMobile = () => {
-  const { menus } = usePagesMenu();
+  const { menus, active } = usePagesMenu();
+
   return (
     <div className="right-0 mt-2">
       <Menu>
@@ -35,7 +36,12 @@ const MenuMobile = () => {
               <Menu.Items className="absolute right-5 z-10 w-72 origin-top-right divide-y divide-gray-100 rounded-md bg-white p-4 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="px-1 py-1 ">
                   <Menu.Item>
-                    <Link className="text-orange-500" to="/">
+                    <Link
+                      className={`${
+                        active === '/' ? 'text-orange-900' : 'text-orange-500'
+                      }`}
+                      to="/"
+                    >
                       Inicio
                     </Link>
                   </Menu.Item>
@@ -54,8 +60,27 @@ const MenuMobile = () => {
                     </Menu.Item>
                   ))}
                   <Menu.Item>
-                    <Link className="text-orange-500" to="/blog">
-                      Blog
+                    <Link
+                      className={`${
+                        active === '/blog/'
+                          ? 'text-orange-900'
+                          : 'text-orange-500'
+                      }`}
+                      to="/blog"
+                    >
+                      <div className="py-1">Blog</div>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <Link
+                      className={`${
+                        active === '/proyectos-y-actividades/loteria/'
+                          ? 'text-orange-900'
+                          : 'text-orange-500'
+                      }`}
+                      to="/proyectos-y-actividades/loteria"
+                    >
+                      <div className="py-1">Lotería</div>
                     </Link>
                   </Menu.Item>
                 </div>

@@ -17,7 +17,12 @@ const Page = ({ data: { page } }: PageProps<Queries.PageByIdQuery>) => {
       />
       <article itemScope itemType="http://schema.org/Article">
         <header>
-          <h1 itemProp="headline">{page && page.title && parse(page.title)}</h1>
+          <h1
+            itemProp="headline"
+            className="mb-4 text-2xl text-orange-500 md:mb-8 md:text-4xl"
+          >
+            {page && page.title && parse(page.title)}
+          </h1>
         </header>
         {page && !!page.content && (
           <section itemProp="articleBody">{parse(page.content)}</section>

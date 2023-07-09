@@ -1,14 +1,9 @@
 import { graphql, useStaticQuery } from 'gatsby';
-
-interface PageMenu {
-  id: string;
-  uri: string;
-  title: string;
-}
-
-type MenuNode = Queries.PagesMenuQuery['allWpPage']['edges'][0];
+import { useEffect, useState } from 'react';
 
 export const usePagesMenu = () => {
+  const [active, setActive] = useState<string>('');
+
   const data: Queries.PagesMenuQuery = useStaticQuery(graphql`
     query PagesMenu {
       allWpPage {
@@ -40,5 +35,12 @@ export const usePagesMenu = () => {
     .filter((node) => node.uri !== '/bienvenidos/')
     .filter((node) => node.ancestors === null);
 
-  return { menus };
+  if (typeof window !== 'undefined') {
+    useEffect(() => {
+      setActive(window.location.pathname);
+      console.log({ active: window.location.pathname });
+    }, [window]);
+  }
+
+  return { menus, active };
 };
