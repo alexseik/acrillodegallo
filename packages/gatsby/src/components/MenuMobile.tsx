@@ -3,10 +3,10 @@ import { Menu } from '@headlessui/react';
 import { Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from 'gatsby';
+import { usePagesMenu } from '../hooks/menus';
 
-type MenuLinks = Queries.HeaderQueryQuery['allWpPage']['edges'][0]['node'];
-
-const MenuMobile = ({ links }: { readonly links: MenuLinks[] }) => {
+const MenuMobile = () => {
+  const { menus } = usePagesMenu();
   return (
     <div className="right-0 mt-2">
       <Menu>
@@ -32,9 +32,14 @@ const MenuMobile = ({ links }: { readonly links: MenuLinks[] }) => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-5 z-10 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute right-5 z-10 w-72 origin-top-right divide-y divide-gray-100 rounded-md bg-white p-4 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="px-1 py-1 ">
-                  {links.map((link) => (
+                  <Menu.Item>
+                    <Link className="text-orange-500" to="/">
+                      Inicio
+                    </Link>
+                  </Menu.Item>
+                  {menus.map((link) => (
                     <Menu.Item>
                       {({ active }) => (
                         <Link
@@ -48,6 +53,11 @@ const MenuMobile = ({ links }: { readonly links: MenuLinks[] }) => {
                       )}
                     </Menu.Item>
                   ))}
+                  <Menu.Item>
+                    <Link className="text-orange-500" to="/blog">
+                      Blog
+                    </Link>
+                  </Menu.Item>
                 </div>
               </Menu.Items>
             </Transition>

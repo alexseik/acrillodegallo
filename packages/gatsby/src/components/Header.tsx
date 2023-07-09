@@ -1,26 +1,11 @@
 import React from 'react';
-import { Link, useStaticQuery, graphql } from 'gatsby';
+import { Link } from 'gatsby';
 import Logo from './Logo';
 import MenuMobile from './MenuMobile';
+import { usePagesMenu } from '../hooks/menus';
 
 const Header = () => {
-  const data: Queries.HeaderQueryQuery = useStaticQuery(graphql`
-    query HeaderQuery {
-      allWpPage {
-        edges {
-          node {
-            id
-            uri
-            title
-          }
-        }
-      }
-    }
-  `);
-
-  const menus = data.allWpPage.edges
-    .map((edge) => edge.node)
-    .filter((node) => node.uri !== '/bienvenidos/');
+  const { menus } = usePagesMenu();
 
   return (
     <header>
@@ -29,11 +14,17 @@ const Header = () => {
           <Logo />
         </div>
         <div className="px-4 md:hidden">
-          <MenuMobile links={menus} />
+          <MenuMobile />
         </div>
       </div>
       <nav className="hidden bg-white px-6 py-4 md:block">
         <div className="flex justify-center">
+          <Link
+            className="mx-3 mt-2 text-sm uppercase text-orange-500 md:mt-0"
+            to="/"
+          >
+            Inicio
+          </Link>
           {menus.map((menu) => (
             <Link
               key={menu.id}
