@@ -47,11 +47,13 @@ const MenuMobile = () => {
                   </Menu.Item>
                   {menus.map((link) => (
                     <Menu.Item>
-                      {({ active }) => (
+                      {() => (
                         <Link
                           className={`${
-                            active && 'text-orange-900'
-                          }  text-orange-500`}
+                            active === link.uri
+                              ? 'text-orange-900'
+                              : 'text-orange-500'
+                          }`}
                           to={link.uri ? link.uri : '/'}
                         >
                           <div className="py-1">{link.title}</div>
