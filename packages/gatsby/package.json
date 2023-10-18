@@ -22,7 +22,10 @@
   "dependencies": {
     "@headlessui/react": "^1.7.13",
     "@heroicons/react": "^2.0.16",
+    "@wordpress/base-styles": "^4.31.0",
+    "@wordpress/block-library": "^8.17.0",
     "date-fns": "^2.29.3",
+    "dotenv": "^16.3.1",
     "gatsby": "^5.10.0",
     "gatsby-plugin-image": "^3.3.2",
     "gatsby-plugin-manifest": "^5.3.1",

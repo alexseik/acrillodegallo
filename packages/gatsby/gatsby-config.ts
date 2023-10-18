@@ -6,10 +6,14 @@
  *
  */
 
-export const graphqlTypegen = true
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
+export const graphqlTypegen = true;
 export const plugins = [
-  "gatsby-plugin-sass",
-  "gatsby-plugin-postcss",
+  'gatsby-plugin-sass',
+  'gatsby-plugin-postcss',
   {
     /**
      * First up is the WordPress source plugin that connects Gatsby
@@ -22,7 +26,7 @@ export const plugins = [
     resolve: `gatsby-source-wordpress`,
     options: {
       // the only required plugin option for WordPress is the GraphQL url.
-      url: process.env.WORDPRESS_URL || "http://localhost/graphql",
+      url: process.env.WPGRAPHQL_URL || 'http://localhost/graphql',
       verbose: true,
       schema: {
         perPage: 200,
@@ -81,4 +85,4 @@ export const plugins = [
    * To learn more, visit: https://gatsby.dev/offline
    */
   // `gatsby-plugin-offline`,
-]
+];

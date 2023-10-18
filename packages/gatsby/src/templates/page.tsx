@@ -15,17 +15,24 @@ const Page = ({ data: { page } }: PageProps<Queries.PageByIdQuery>) => {
         title={page && page.title ? page.title : ''}
         description={page && page.title ? page.title : ''}
       />
-      <article itemScope itemType="http://schema.org/Article">
+      <article
+        itemScope
+        itemType="http://schema.org/Article"
+        className="wp-site-blocks"
+      >
         <header>
           <h1
             itemProp="headline"
-            className="mb-4 text-2xl text-orange-500 md:mb-8 md:text-4xl"
+            className="wp-post-block-post-title mb-4 text-2xl text-orange-500 md:mb-8 md:text-4xl"
           >
             {page && page.title && parse(page.title)}
           </h1>
         </header>
+
         {page && !!page.content && (
-          <section itemProp="articleBody">{parse(page.content)}</section>
+          <div className="entry-content wp-block-post-content has-global-padding is-layout-constrained">
+            <section itemProp="articleBody">{parse(page.content)}</section>
+          </div>
         )}
       </article>
     </Layout>
